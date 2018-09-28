@@ -1,3 +1,13 @@
+镜像命令：
+1、获取镜像：
+ docker pull eg. sudo docker pull ubuntu
+2、查看镜像信息
+  docker images 列出列出本地主机上已有的镜像
+3、搜寻镜像
+  docder search 命令可以搜索远端仓库中共享的镜像，默认搜寻 Docker Hub 官方仓库中的镜像
+  $ sudo docker search mysql
+  
+
 容器的常用命令：
 创建容器：
   使用 docker create 命令新建一个容器
@@ -28,4 +38,6 @@
   mysqldb
   liubing@iZj6cc6u1iybgbu0vkx6vlZ:~$ sudo docker rm a55c7f0105f1
   a55c7f0105f1
+  如果要删除一个运行中的容器，可以添加 -f 参数，docker会发送SIGKILL 信号给容器，终止其中的应用
+  $ sudo docker rm -f mysqldb
   
