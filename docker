@@ -6,6 +6,8 @@
 3、搜寻镜像
   docder search 命令可以搜索远端仓库中共享的镜像，默认搜寻 Docker Hub 官方仓库中的镜像
   $ sudo docker search mysql
+4、删除镜像
+ $ sudo docker rmi imageid/label
   
 
 容器的常用命令：
