@@ -8,7 +8,10 @@
   $ sudo docker search mysql
 4、删除镜像
  $ sudo docker rmi imageid/label
-  
+5、创建镜像
+创建镜像的方法有三种，基于已有镜像的容器创建、基于本地模板导入、基于Dockerfile创建
+  1、基于已有镜像容器创建，主要是使用docker commit命令
+  $ sudo docker 
 
 容器的常用命令：
 创建容器：
@@ -43,3 +46,29 @@
   如果要删除一个运行中的容器，可以添加 -f 参数，docker会发送SIGKILL 信号给容器，终止其中的应用
   $ sudo docker rm -f mysqldb
   
+容器互联：
+  先创建一个新的 Docker 网络。
+  $ docker network create -d bridge my-net
+  连接容器
+  运行一个容器并连接到新建的 my-net 网络
+  $ docker run -it --rm --name busybox1 --network my-net busybox sh
+  打开新的终端，再运行一个容器并加入到 my-net 网络
+
+  $ docker run -it --rm --name busybox2 --network my-net busybox sh
+
+Docker mysql 把数据存储在本地目录
+  1、加上-v参数
+  $ docker run -d -e MYSQL_ROOT_PASSWORD=admin --name mysql -v /data/mysql/data:/var/lib/mysql -p 3306:3306 mysql 1
+  2、=还可以指定配置文件
+  docker run -d -e MYSQL_ROOT_PASSWORD=admin --name mysql -v /data/mysql/my.cnf:/etc/mysql/my.cnf -v /data/mysql/data:/var/lib/mysql -p 3306:3306 mysql 1
+mysql 客户端不能连接解决办法：
+1、  mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+     mysql> FLUSH PRIVILEGES;
+2、改表法。
+  mysql -u root -pvmwaremysql>use mysql;　　
+  mysql>update user set host = '%' where user = 'root';　　
+  mysql>select host, user from user;　　
+  mysql>FLUSH RIVILEGES
+3、授权法
+GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%'IDENTIFIED BY 'mypassword' WITH GRANT OPTION;　　
+FLUSH RIVILEGES
