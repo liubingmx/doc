@@ -72,3 +72,7 @@ mysql 客户端不能连接解决办法：
 3、授权法
 GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%'IDENTIFIED BY 'mypassword' WITH GRANT OPTION;　　
 FLUSH RIVILEGES
+
+一条命令实现停用并删除容器：
+docker stop $(docker ps -q) & docker rm $(docker ps -aq)
+
