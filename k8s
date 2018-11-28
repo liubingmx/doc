@@ -57,8 +57,8 @@ sudo kubeadm init --config kubeadm.yaml
 
 当然，如果你就是想要一个单节点的 Kubernetes，删除...
 $ kubectl taint nodes --all node-role.kubernetes.io/master-
-
-
+dashboard install 
+https://blog.csdn.net/KingBoyWorld/article/details/79889209
 
 
 
