@@ -55,6 +55,11 @@ kubernetesVersion: "v1.11.1"
 
 sudo kubeadm init --config kubeadm.yaml
 
+$ kubectl apply -f https://git.io/weave-kube-1.6
+
+$ kubectl taint nodes --all node-role.kubernetes.io/master-
+
+
 当然，如果你就是想要一个单节点的 Kubernetes，删除...
 $ kubectl taint nodes --all node-role.kubernetes.io/master-
 dashboard install 
