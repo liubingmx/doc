@@ -55,16 +55,39 @@ kubernetesVersion: "v1.11.1"
 
 sudo kubeadm init --config kubeadm.yaml
 
-$ kubectl apply -f https://git.io/weave-kube-1.6
+
 
 $ kubectl taint nodes --all node-role.kubernetes.io/master-
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+部署网络插件：
+ $ kubectl apply -f https://git.io/weave-kube-1.6
 
 
 当然，如果你就是想要一个单节点的 Kubernetes，删除...
 $ kubectl taint nodes --all node-role.kubernetes.io/master-
+
 dashboard install 
 https://blog.csdn.net/KingBoyWorld/article/details/79889209
+docker pull siriuszg/kubernetes-dashboard-amd64:v1.8.3
+docker tag siriuszg/kubernetes-dashboard-amd64:v1.8.3 k8s.gcr.io/kubernetes-dashboard-amd64:v1.8.3
+kubectl create -f kubernetes-dashboard.yaml
 
 
+vim kubernetes-dashboard-admin.rbac.yaml
 
+--宽泛的RBAC权限
+您可以使用RBAC角色绑定来复制一个宽泛的策略。
+
+警告：以下政策略允许所有服务帐户作为集群管理员。 运行在容器中的任何应用程序都会自动接收服务帐户凭据，
+      并且可以对API执行任何操作，包括查看secret和修改权限。 因此，并不推荐使用这种策略。
+kubectl create clusterrolebinding permissive-binding \
+  --clusterrole=cluster-admin \
+  --user=admin \
+  --user=kubelet \
+  --group=system:serviceaccounts
 
