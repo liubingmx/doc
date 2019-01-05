@@ -1,0 +1,16 @@
+
+1、我们直接拉取别人做好的 docker 镜像。这里我选择的是 Github 上别人做好的 Shadowsock VPN Docker 镜像
+  docker pull oddrationale/docker-shadowsocks
+2、启动镜像
+  docker run -d -p 9999:9999 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 9999 -k welcome -m aes-256-cfb
+  -d参数允许 docker 常驻后台运行
+  -p来指定要映射的端口，这里端口号统一保持一致即可。例如：9999
+  -s服务器 IP 地址，不用动
+  -k后面设置你的 VPN 的密码，比如：helloworld
+  -m指定加密方式
+3、安装 vpn 客户端（Mac & Windows）
+   windows:https://github.com/shadowsocks/shadowsocks-windows
+   mac:https://github.com/shadowsocks/ShadowsocksX-NG
+
+4、配置服务器信息，启用代理 
+   
