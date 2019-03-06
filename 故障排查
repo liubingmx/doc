@@ -1,0 +1,7 @@
+### cpu太高
+
+1. ps -mp pid -o THREAD,tid,time   或者top -Hp pid
+  -m 在进程后列出线程， -o 格式化输出 -p 指定pid
+2. printf "%x\n" tid 
+  转换为16进制
+3.jstack pid |grep tid -A 30
