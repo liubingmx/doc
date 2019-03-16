@@ -160,6 +160,23 @@ $ kubectl -n kube-system describe secret \
      awk '{print $$1}') | \
      grep "token:" | \
      awk '{print $$2}'| tail -n1 | pbcopy
+     
+or 
+$ kubectl describe secrets $ADMIN_SECRET -n kube-system  
+
+Name:         dashboard-admin-token-xs4zb
+Namespace:    kube-system
+Labels:       <none>
+Annotations:  kubernetes.io/service-account.name=dashboard-admin
+              kubernetes.io/service-account.uid=4a8611e3-47c3-11e9-8cd2-00163e0c585a
+
+Type:  kubernetes.io/service-account-token
+
+Data
+====
+ca.crt:     1025 bytes
+namespace:  11 bytes
+token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkYXNoYm9hcmQtYWRtaW4tdG9rZW4teHM0emIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGFzaGJvYXJkLWFkbWluIiwia3ViZXJ   
 ```
 
 
