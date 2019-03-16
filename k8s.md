@@ -135,6 +135,8 @@ $ kubectl create secret generic kubernetes-dashboard-certs \
 
 在线直接创建：
 ```
+$ docker pull mirrorgooglecontainers/kubernetes-dashboard-amd64:v1.10.1
+$ docker tag mirrorgooglecontainers/kubernetes-dashboard-amd64:v1.10.1 k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1
 $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
 
 $ kubectl patch svc kubernetes-dashboard -p '{"spec":{"type":"NodePort"}}' -n kube-system
