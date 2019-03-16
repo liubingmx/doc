@@ -155,11 +155,11 @@ $ kubectl create clusterrolebinding dashboard-admin --clusterrole=cluster-admin 
 b)获取token
 ```
 $ kubectl -n kube-system describe secret \
-		$(kubectl -n kube-system get secret | \
-    grep admin-token | \
-    awk '{print $$1}') | \
+     $(kubectl -n kube-system get secret | \
+     grep admin-token | \
+     awk '{print $$1}') | \
      grep "token:" | \
-    awk '{print $$2}'| tail -n1 | pbcopy
+     awk '{print $$2}'| tail -n1 | pbcopy
 ```
 
 
