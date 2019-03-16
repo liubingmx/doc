@@ -28,22 +28,31 @@ $ sudo docker rmi imageid/label
   $sudo docker create -it ubuntu:latest (新建的容器处于停止状态，可以用docker start来启动它)
   
 1. 使用容器运行mysql镜像：
+```
   $ sudo docker run --name mysqldb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:latest
-2、进入容器：
-  attach命令：
-  exec命令：
-  $ sudo docker exec -ti mysqldb bash   
+```
+2. 进入容器：
+-  attach命令：
+-  exec命令：
+```  $ sudo docker exec -ti mysqldb bash   
     -t  分配一个伪终端
     -i  即使没有附加也保持STDIN打开
-3、终止容器
-  $sudo docker stop mysqldb
-  处于终止的容器可以通过 docker start 命令来重新启动
-  $ sudo docker start mysqldb
-4、在容器内使用ps命令查看进程
-  如果出现 bash: man: command not found，镜像没有打包ps命令，使用如下命令安装
-   apt-get update && apt-get install procps
-5、删除容器
-  可以使用docker rm 命令删除处于终止状态的容器，
+```
+3. 终止容器
+```
+$sudo docker stop mysqldb
+```
+- 处于终止的容器可以通过 docker start 命令来重新启动
+```
+$ sudo docker start mysqldb
+```
+4. 在容器内使用ps命令查看进程
+-  如果出现 bash: man: command not found，镜像没有打包ps命令，使用如下命令安装
+```
+apt-get update && apt-get install procps
+```
+5.删除容器
+-  可以使用docker rm 命令删除处于终止状态的容器，
   ```
   $ sudo docker ps -a
   [sudo] password for ***: 
