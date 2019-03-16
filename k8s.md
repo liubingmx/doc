@@ -1,5 +1,6 @@
-kubernetes
-Debian / Ubuntu
+## kubernetes
+### Debian / Ubuntu
+```
 apt-get update && apt-get install -y apt-transport-https
 curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - 
 cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
@@ -10,8 +11,9 @@ apt-get update
 apt install kubelet=1.11.3-00
 apt install kubectl=1.11.3-00
 apt install kubeadm=1.11.3-00
-
-CentOS / RHEL / Fedora
+```
+### CentOS / RHEL / Fedora
+```
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
@@ -24,10 +26,12 @@ EOF
 setenforce 0
 yum install -y kubelet kubeadm kubectl
 systemctl enable kubelet && systemctl start kubelet
+```
 
-
-由于国内网络原因，kubernetes的镜像托管在google云上，无法直接下载，所以直接把把镜像搞下来有个技术大牛把gcr.io的镜像
+由于国内网络原因，kubernetes的镜像托管在google云上，无法直接下载，所以直接把把镜像搞下来有个技术大牛把gcr.io的镜像 
 每天同步到https://github.com/anjia0532/gcr.io_mirror这个站点，因此，如果需要用到gcr.io的镜像，可以执行如下的脚本进行镜像拉取
+
+```
 vim pullimages.sh
 
 #!/bin/bash
@@ -54,30 +58,37 @@ apiServerExtraArgs:
 kubernetesVersion: "v1.11.1"
 
 sudo kubeadm init --config kubeadm.yaml
-
+```
 
 
 $ kubectl taint nodes --all node-role.kubernetes.io/master-
 
-To start using your cluster, you need to run the following as a regular user:
-
+- To start using your cluster, you need to run the following as a regular user:
+```
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
-部署网络插件：(确保能连到grc.io下载所需镜像，或者自己下载镜像）
+```
+- 部署网络插件：(确保能连到grc.io下载所需镜像，或者自己下载镜像）
+```
  $ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
+```
 
-
-当然，如果你就是想要一个单节点的 Kubernetes，删除...
+- 当然，如果你就是想要一个单节点的 Kubernetes，删除...
+```
 $ kubectl taint nodes --all node-role.kubernetes.io/master-
+```
 
-dashboard install 
-https://blog.csdn.net/KingBoyWorld/article/details/79889209
+### dashboard install 
+- [blog] "https://blog.csdn.net/KingBoyWorld/article/details/79889209"
+```
 docker pull siriuszg/kubernetes-dashboard-amd64:v1.8.3
 docker tag siriuszg/kubernetes-dashboard-amd64:v1.8.3 k8s.gcr.io/kubernetes-dashboard-amd64:v1.8.3
 kubectl create -f kubernetes-dashboard.yaml
+```
 
-部署https通信的Dashboard
+- 部署https通信的Dashboard
+
 openssl可以实现：秘钥证书管理、对称加密和非对称加密 。
 -in filename：指定要加密的文件存放路径
 -out filename：指定加密后的文件存放路径
@@ -113,27 +124,34 @@ $ kubectl create secret generic kubernetes-dashboard-certs \
     -n kube-system --form-file=dashboard.crt=./dashboard.crt \
     --from-file=dashboard.key=./dashboard.key -n kube-system
     
-Secrets对象准备完成后即可部署Dashboard。
+- Secrets对象准备完成后即可部署Dashboard。
+
 在线直接创建：
+```
 $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 
 $ kubectl patch svc kubernetes-dashboard -p '{"spec":{"type":"NodePort"}}' -n kube-system
-通过nodeip+nodeport在集群外通过浏览器访问：
+```
+- 通过nodeip+nodeport在集群外通过浏览器访问：
+```
 $ kubectl get svc kubernetes-dashboard -n kube-system
+```
 
 3. 配置token认证
 a)创建serviceaccount,并完成集群角色绑定
+```
 $ kubectl create serviceaccount dashboard-admin -n kube-system
 $ kubectl create clusterrolebinding dashboard-admin --clusterrole=cluster-admin --serviceaccount=kube-system:dashboard-admin
-
+```
 b)获取token
+```
 $ kubectl -n kube-system describe secret \
 		$(kubectl -n kube-system get secret | \
     grep admin-token | \
     awk '{print $$1}') | \
      grep "token:" | \
     awk '{print $$2}'| tail -n1 | pbcopy
-
+```
 
 
 
