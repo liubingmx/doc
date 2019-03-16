@@ -128,7 +128,7 @@ $ openssl x509 -req -in dashboard.csr -CA /etc/kubernetes/pki/ca.crt \
 2. 基于生成的私钥和证书文件创建名为kubernetes-dashboard-certs的Opaque类型的Secrets对象，其键名分别为dashboard.key和dashboard.crt 
 ```
 $ kubectl create secret generic kubernetes-dashboard-certs \
-    -n kube-system --form-file=dashboard.crt=./dashboard.crt \
+    -n kube-system --from-file=dashboard.crt=./dashboard.crt \
     --from-file=dashboard.key=./dashboard.key -n kube-system
 ```    
 - Secrets对象准备完成后即可部署Dashboard。
