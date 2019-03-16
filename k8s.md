@@ -92,13 +92,15 @@ openssl可以实现：秘钥证书管理、对称加密和非对称加密 。
 -in filename：指定要加密的文件存放路径
 -out filename：指定加密后的文件存放路径
 1. 生成证书
-a) 生成密钥
+
+a) 生成密钥 
 ```
 $ (umask 077; openssl genrsa -out dashboard.key 2048)
   - umask命令来设置生成的密钥文件的权限
   - numbits：指定生成私钥的大小，默认是2048
 ```
-b) 生成证书
+b) 生成证书 
+
 ```
 $ openssl req -new -key dashboard.key -out dashboard.csr -subj "/O=iLinux/CN=dashboard"
 ```
@@ -111,7 +113,7 @@ $ openssl req -new -key dashboard.key -out dashboard.csr -subj "/O=iLinux/CN=das
     -days：指定证书的有效期限，单位为day，默认是365天；
     -subj: set or modify request subject
   ```
-c) 颁发证书
+c) 颁发证书 
 ```
 $ openssl x509 -req -in dashboard.csr -CA /etc/kubernetes/pki/ca.crt \
     -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out dashboard.crt -days 3650
@@ -123,7 +125,7 @@ $ openssl x509 -req -in dashboard.csr -CA /etc/kubernetes/pki/ca.crt \
       -days: How long till expiry of a signed certificate - def 30 days
     -X509 子命令x509
 ```
-2. 基于生成的私钥和证书文件创建名为kubernetes-dashboard-certs的Opaque类型的Secrets对象，其键名分别为dashboard.key和dashboard.crt
+2. 基于生成的私钥和证书文件创建名为kubernetes-dashboard-certs的Opaque类型的Secrets对象，其键名分别为dashboard.key和dashboard.crt 
 ```
 $ kubectl create secret generic kubernetes-dashboard-certs \
     -n kube-system --form-file=dashboard.crt=./dashboard.crt \
