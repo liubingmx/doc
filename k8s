@@ -64,8 +64,8 @@ To start using your cluster, you need to run the following as a regular user:
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
-部署网络插件：
- $ kubectl apply -f https://git.io/weave-kube-1.6
+部署网络插件：(确保能连到grc.io下载所需镜像，或者自己下载镜像）
+ $ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
 
 
 当然，如果你就是想要一个单节点的 Kubernetes，删除...
@@ -77,17 +77,66 @@ docker pull siriuszg/kubernetes-dashboard-amd64:v1.8.3
 docker tag siriuszg/kubernetes-dashboard-amd64:v1.8.3 k8s.gcr.io/kubernetes-dashboard-amd64:v1.8.3
 kubectl create -f kubernetes-dashboard.yaml
 
+部署https通信的Dashboard
+openssl可以实现：秘钥证书管理、对称加密和非对称加密 。
+-in filename：指定要加密的文件存放路径
+-out filename：指定加密后的文件存放路径
+1. 生成证书
+a) 生成密钥
+$ (umask 077; openssl genrsa -out dashboard.key 2048)
+  - umask命令来设置生成的密钥文件的权限
+  - numbits：指定生成私钥的大小，默认是2048
+b) 生成证书
+$ openssl req -new -key dashboard.key -out dashboard.csr -subj "/O=iLinux/CN=dashboard"
+  - req 子命令为，其为证书请求及生成的工具
+  ```
+    -new：表示生成一个新的证书签署请求；
+    -x509：专用于生成CA自签证书；
+    -key：指定生成证书用到的私钥文件；
+    -out FILNAME：指定生成的证书的保存路径；
+    -days：指定证书的有效期限，单位为day，默认是365天；
+    -subj: set or modify request subject
+  ```
+c) 颁发证书
+$ openssl x509 -req -in dashboard.csr -CA /etc/kubernetes/pki/ca.crt \
+    -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out dashboard.crt -days 3650
+    
+    -CA 子命令CA，用于在CA服务器上签署或吊销证书
+      -CAkey: set the CA key, must be PEM format
+                   missing, it is assumed to be in the CA file.
+      -CAcreateserial: create serial number file if it does not exist
+      -days: How long till expiry of a signed certificate - def 30 days
+    -X509 子命令x509
 
-vim kubernetes-dashboard-admin.rbac.yaml
+2. 基于生成的私钥和证书文件创建名为kubernetes-dashboard-certs的Opaque类型的Secrets对象，其键名分别为dashboard.key和dashboard.crt
+$ kubectl create secret generic kubernetes-dashboard-certs \
+    -n kube-system --form-file=dashboard.crt=./dashboard.crt \
+    --from-file=dashboard.key=./dashboard.key -n kube-system
+    
+Secrets对象准备完成后即可部署Dashboard。
+在线直接创建：
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 
---宽泛的RBAC权限
-您可以使用RBAC角色绑定来复制一个宽泛的策略。
+$ kubectl patch svc kubernetes-dashboard -p '{"spec":{"type":"NodePort"}}' -n kube-system
+通过nodeip+nodeport在集群外通过浏览器访问：
+$ kubectl get svc kubernetes-dashboard -n kube-system
 
-警告：以下政策略允许所有服务帐户作为集群管理员。 运行在容器中的任何应用程序都会自动接收服务帐户凭据，
-      并且可以对API执行任何操作，包括查看secret和修改权限。 因此，并不推荐使用这种策略。
-kubectl create clusterrolebinding permissive-binding \
-  --clusterrole=cluster-admin \
-  --user=admin \
-  --user=kubelet \
-  --group=system:serviceaccounts
+3. 配置token认证
+a)创建serviceaccount,并完成集群角色绑定
+$ kubectl create serviceaccount dashboard-admin -n kube-system
+$ kubectl create clusterrolebinding dashboard-admin --clusterrole=cluster-admin --serviceaccount=kube-system:dashboard-admin
+
+b)获取token
+$ kubectl -n kube-system describe secret \
+		$(kubectl -n kube-system get secret | \
+    grep admin-token | \
+    awk '{print $$1}') | \
+     grep "token:" | \
+    awk '{print $$2}'| tail -n1 | pbcopy
+
+
+
+
+
+
 
