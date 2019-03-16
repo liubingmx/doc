@@ -58,10 +58,9 @@ apiServerExtraArgs:
 kubernetesVersion: "v1.11.1"
 
 sudo kubeadm init --config kubeadm.yaml
-```
-
 
 $ kubectl taint nodes --all node-role.kubernetes.io/master-
+```
 
 - To start using your cluster, you need to run the following as a regular user:
 ```
@@ -94,12 +93,16 @@ openssl可以实现：秘钥证书管理、对称加密和非对称加密 。
 -out filename：指定加密后的文件存放路径
 1. 生成证书
 a) 生成密钥
+```
 $ (umask 077; openssl genrsa -out dashboard.key 2048)
   - umask命令来设置生成的密钥文件的权限
   - numbits：指定生成私钥的大小，默认是2048
+```
 b) 生成证书
+```
 $ openssl req -new -key dashboard.key -out dashboard.csr -subj "/O=iLinux/CN=dashboard"
-  - req 子命令为，其为证书请求及生成的工具
+```
+- req 子命令为，其为证书请求及生成的工具
   ```
     -new：表示生成一个新的证书签署请求；
     -x509：专用于生成CA自签证书；
@@ -109,6 +112,7 @@ $ openssl req -new -key dashboard.key -out dashboard.csr -subj "/O=iLinux/CN=das
     -subj: set or modify request subject
   ```
 c) 颁发证书
+```
 $ openssl x509 -req -in dashboard.csr -CA /etc/kubernetes/pki/ca.crt \
     -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out dashboard.crt -days 3650
     
@@ -118,12 +122,13 @@ $ openssl x509 -req -in dashboard.csr -CA /etc/kubernetes/pki/ca.crt \
       -CAcreateserial: create serial number file if it does not exist
       -days: How long till expiry of a signed certificate - def 30 days
     -X509 子命令x509
-
+```
 2. 基于生成的私钥和证书文件创建名为kubernetes-dashboard-certs的Opaque类型的Secrets对象，其键名分别为dashboard.key和dashboard.crt
+```
 $ kubectl create secret generic kubernetes-dashboard-certs \
     -n kube-system --form-file=dashboard.crt=./dashboard.crt \
     --from-file=dashboard.key=./dashboard.key -n kube-system
-    
+```    
 - Secrets对象准备完成后即可部署Dashboard。
 
 在线直接创建：
