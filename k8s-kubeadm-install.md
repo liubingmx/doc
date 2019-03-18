@@ -28,7 +28,7 @@ yum install -y kubelet kubeadm kubectl
 systemctl enable kubelet && systemctl start kubelet
 ```
 
-由于国内网络原因，kubernetes的镜像托管在google云上，无法直接下载，所以直接把把镜像搞下来有个技术大牛把gcr.io的镜像 
+由于国内网络原因，kubernetes的镜像托管在google云上，无法直接下载，所以直接把把镜像搞下来有个技术大牛把gcr.io的镜像
 每天同步到https://github.com/anjia0532/gcr.io_mirror这个站点，因此，如果需要用到gcr.io的镜像，可以执行如下的脚本进行镜像拉取
 
 ```
