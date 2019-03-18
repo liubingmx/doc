@@ -60,6 +60,20 @@ $  kubectl delete -f filename
 export KUBECONFIG=/path/to/standalone/.kube/config
 ```
 
+#### helm
+```
+$ helm del --purge bundle
+```
+
+
+
+
+
+
+
+
+
+
 - create configmap from file
 ```
 $ kubectl create configmap confnginx --from-file=nginx.conf
