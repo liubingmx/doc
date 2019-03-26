@@ -191,6 +191,17 @@ token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2V
 ---
 - Q: helm install  occur " has no deploy release.."
 - A: helm delete --purge {helm.release}
+---
 
+- Q: Error: object is being deleted: customresourcedefinitions.apiextensions.k8s.io "alertmanagers.monitoring.coreos.com" already exists
+- A: 
+```
+$ helm delete my-release
+
+kubectl delete crd prometheuses.monitoring.coreos.com
+kubectl delete crd prometheusrules.monitoring.coreos.com
+kubectl delete crd servicemonitors.monitoring.coreos.com
+kubectl delete crd alertmanagers.monitoring.coreos.com
+```
 
 
