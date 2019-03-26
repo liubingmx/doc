@@ -171,8 +171,27 @@ namespace:  11 bytes
 token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkYXNoYm9hcmQtYWRtaW4tdG9rZW4teHM0emIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGFzaGJvYXJkLWFkbWluIiwia3ViZXJ   
 ```
 
+### Question
 
+- Q: node execute command "kubeadm join ..." the error:
+```
+    Unfortunately, an error has occurred:
+      timed out waiting for the condition
 
+    This error is likely caused by:
+      - The kubelet is not running
+      - The kubelet is unhealthy due to a misconfiguration of the node in some way (required cgroups disabled)
+
+    If you are on a systemd-powered system, you can try to troubleshoot the error with the following commands:
+      - 'systemctl status kubelet'
+      - 'journalctl -xeu kubelet'
+    timed out waiting for the condition
+```
+
+- A: sudo apt-get remove kubelet --purge and then install it again.
+
+- Q: helm install  occur " has no deploy release.."
+- A: helm delete --purge {helm.release}
 
 
 
