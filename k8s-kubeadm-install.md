@@ -187,9 +187,8 @@ token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2V
       - 'journalctl -xeu kubelet'
     timed out waiting for the condition
 ```
-
 - A: sudo apt-get remove kubelet --purge and then install it again.
-
+---
 - Q: helm install  occur " has no deploy release.."
 - A: helm delete --purge {helm.release}
 
