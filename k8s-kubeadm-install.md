@@ -1,16 +1,16 @@
 ## kubernetes
 ### Debian / Ubuntu
 ```
-apt-get update && apt-get install -y apt-transport-https
-curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - 
+sudo apt-get update && sudo apt-get install -y apt-transport-https
+curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add - 
 cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
 deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
 EOF  
-apt-get update
+sudo apt-get update
 #apt-get install -y kubelet kubeadm kubectl
-apt install kubelet=1.11.3-00
-apt install kubectl=1.11.3-00
-apt install kubeadm=1.11.3-00
+sudo apt install kubelet=1.11.3-00
+sudo apt install kubectl=1.11.3-00
+sudo apt install kubeadm=1.11.3-00
 ```
 ### CentOS / RHEL / Fedora
 ```
