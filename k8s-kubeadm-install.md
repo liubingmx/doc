@@ -171,6 +171,17 @@ namespace:  11 bytes
 token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkYXNoYm9hcmQtYWRtaW4tdG9rZW4teHM0emIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGFzaGJvYXJkLWFkbWluIiwia3ViZXJ   
 ```
 
+### private helm repo install 
+
+- helm install
+-
+```
+mkdir -p /data/helm/repo/charts
+nohup helm serve --address 0.0.0.0:8879 --repo-path /dcos/appstore/local-repo &
+helm repo add local-repo http://10.142.21.21:8879
+```
+
+
 ### Question
 
 - Q: node execute command "kubeadm join ..." the error:
