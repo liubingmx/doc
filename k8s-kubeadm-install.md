@@ -220,4 +220,17 @@ kubectl delete crd alertmanagers.monitoring.coreos.com
 ```
 kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
 ```
+---
+- Q: ERROR
+```
+The following packages have unmet dependencies:
+ kubeadm : Depends: kubernetes-cni (= 0.6.0) but 0.6.0-02 is to be installed
+ kubelet : Depends: kubernetes-cni (= 0.6.0) but 0.6.0-02 is to be installed
+E: Unable to correct problems, you have held broken packages.
+```
+- A:
+```
+apt-get install kubernetes-cni=0.6.0-00
+```
+
 
