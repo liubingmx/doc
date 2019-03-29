@@ -47,19 +47,14 @@ done
 
 sh pullimages.sh
 
-vim kubeadm.yaml 
+kubeadm config print-default > kubeadm.conf 
+sed -i "s/imageRepository: .*/imageRepository: registry.aliyuncs.com\/google_containers/g" kubeadm.conf
+sed -i "s/kubernetesVersion: .*/kubernetesVersion: v1.11.1/g" kubeadm.conf
+#我使用的是Canal网络插件，因此需要将--pod-network-cid设置为10.244.0.0/16
+sed -i "s/podSubnet: .*/podSubnet: \"10.244.0.0\/16\"/g" kubeadm.conf
 
-apiVersion: kubeadm.k8s.io/v1alpha1
-kind: MasterConfiguration
-controllerManagerExtraArgs:
-  horizontal-pod-autoscaler-use-rest-clients: "true"
-  horizontal-pod-autoscaler-sync-period: "10s"
-  node-monitor-grace-period: "10s"
-apiServerExtraArgs:
-  runtime-config: "api/all=true"
-kubernetesVersion: "v1.11.1"
 
-sudo kubeadm init --config kubeadm.yaml
+sudo kubeadm init --config kubeadm.conf
 
 $ kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
