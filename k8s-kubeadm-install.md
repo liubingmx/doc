@@ -77,11 +77,6 @@ $ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 ### dashboard install 
 - [blog] "https://blog.csdn.net/KingBoyWorld/article/details/79889209"
-```
-docker pull siriuszg/kubernetes-dashboard-amd64:v1.8.3
-docker tag siriuszg/kubernetes-dashboard-amd64:v1.8.3 k8s.gcr.io/kubernetes-dashboard-amd64:v1.8.3
-kubectl create -f kubernetes-dashboard.yaml
-```
 
 - 部署https通信的Dashboard
 
