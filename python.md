@@ -3,8 +3,6 @@
 - You may need to install the Python and MySQL development headers and libraries
 ```
 brew install mysql-connector-c
-
-
 ```
 macOS (Homebrew) (Currently, it has bug.)
 Modification of mysql_config resolves these issues as follows.
