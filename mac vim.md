@@ -26,13 +26,6 @@ molokai.vim 文件内容如下：
 ```
 
 " Vim color file
-"
-" Author: Tomas Restrepo <tomas@winterdom.com>
-"
-" Note: Based on the monokai theme for textmate
-" by Wimer Hazenberg and its darker variant
-" by Hamish Stuart Macpherson
-"
 
 hi clear
 
