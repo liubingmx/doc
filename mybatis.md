@@ -29,8 +29,8 @@ List<Item> loadByIds(@Param("ids") List<Integer> ids);
 ```
 - 
 ```
-In MySQL, use the following query, passing "params" as a String with the ids separated by comma: 
-"SELECT * FROM table WHERE FIND_IN_SET(field, #{params})" 
+In MySQL, use the following query, passing "ids" as a String with the ids separated by comma: 
+"SELECT * FROM table WHERE FIND_IN_SET(id, #{ids})" 
 In postgresql, one could use:
 "SELECT * FROM table WHERE id=ANY(#{ids}::int[])"
 
