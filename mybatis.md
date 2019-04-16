@@ -1,4 +1,4 @@
-##### list 参数
+##### How to use Annotations with iBatis (myBatis) for an IN query?
 
 > [stackoverflow.com](https://stackoverflow.com/questions/3428742/how-to-use-annotations-with-ibatis-mybatis-for-an-in-query/29076097)
 - Solution 1: Use @SelectProvider
