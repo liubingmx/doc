@@ -24,6 +24,14 @@ public class MybatisExtendedLanguageDriver extends XMLLanguageDriver
 - usage
 ```
 @Lang(MybatisExtendedLanguageDriver.class)
-@Select("SELECT " + COLUMNS + " FROM sometable where id IN (#{ids})")
-List<SomeItem> loadByIds(@Param("ids") List<Integer> ids);
+@Select("SELECT field FROM table where id IN (#{ids})")
+List<Item> loadByIds(@Param("ids") List<Integer> ids);
+```
+- 
+```
+In MySQL, use the following query, passing "params" as a String with the ids separated by comma: 
+"SELECT * FROM blog WHERE FIND_IN_SET(field, #{params})" 
+In postgresql, one could use:
+"SELECT * FROM blog WHERE id=ANY(#{blogIds}::int[])"
+
 ```
