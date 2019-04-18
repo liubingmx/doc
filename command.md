@@ -14,6 +14,9 @@
 	
 	$ git remote -v
 	$ git remote set-url origin https://***   # change remote repository
+        $ git pull origin develop:develop # checkout remote branch
+	$ git checkout develop # switch branch
+
 ```
 
 #### maven
