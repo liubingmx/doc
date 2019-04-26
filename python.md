@@ -70,5 +70,22 @@ eval "$(pyenv virtualenv-init -)"
 - 删除虚拟环境：`pyenv virtualenv-delete <folder_name>`
 
 
+## Django
+- version
+```
+$ python -m django --version
+```
+- run server
+```
+$ python manage.py runserver
+```
 
+## Celery
+ celery not only schedule
+- install
+```
+$ pip install -U Celery
+$ pip install celery[librabbitmq,redis,auth,msgpack]
+
+```
 
