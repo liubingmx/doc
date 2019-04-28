@@ -16,6 +16,8 @@
 	$ git remote set-url origin https://***   # change remote repository
         $ git pull origin develop:develop # checkout remote branch
 	$ git checkout develop # switch branch
+	$ git reflog show branch # show origin branch
+
 
 create a new repository on the command line
 echo "# Java" >> README.md
