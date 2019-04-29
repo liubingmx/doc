@@ -10,13 +10,19 @@
 
 - 
 ```
+	$ git pull origin develop:develop # checkout remote branch
+	$ git checkout -b develop # checkout from local current branch
+	
 	$ git push origin new_branch    # push new branch to remote
+	$ git branch --set-upstream-to=origin/<branch> # set tracking information for this branch
 	
 	$ git remote -v
 	$ git remote set-url origin https://***   # change remote repository
-        $ git pull origin develop:develop # checkout remote branch
+	
 	$ git checkout develop # switch branch
 	$ git reflog show branch # show origin branch
+	
+	$  git branch -d branch_name # delete branch
 
 
 create a new repository on the command line
