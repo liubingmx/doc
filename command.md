@@ -22,7 +22,7 @@
 	$ git checkout develop # switch branch
 	$ git reflog show branch # show origin branch
 	
-	$  git branch -d branch_name # delete branch
+	$  git branch -d branch_name # delete local branch
 	# if SSL certificate problem: self signed certificate
 	$ git -c http.sslVerify=false pull origin develop:develop
 
