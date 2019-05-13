@@ -23,6 +23,8 @@
 	$ git reflog show branch # show origin branch
 	
 	$  git branch -d branch_name # delete branch
+	# if SSL certificate problem: self signed certificate
+	$ git -c http.sslVerify=false pull origin develop:develop
 
 
 create a new repository on the command line
