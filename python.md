@@ -89,3 +89,5 @@ $ pip install celery[librabbitmq,redis,auth,msgpack]
 
 ```
 
+### pip install 
+pip --timeout=100 install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/ 
