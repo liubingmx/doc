@@ -116,3 +116,8 @@ FLUSH RIVILEGES
 ```
 docker stop $(docker ps -q) & docker rm $(docker ps -aq)
 ```
+
+- 删除tag为none的镜像
+```
+docker images|grep none|awk '{print $3}'|xargs docker rmi
+```
