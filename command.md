@@ -25,6 +25,13 @@
 	$  git branch -d branch_name # delete local branch
 	# if SSL certificate problem: self signed certificate
 	$ git -c http.sslVerify=false pull origin develop:develop
+	
+	$ git stash # save temp change
+	$ git stash save "comment"
+	
+	$ git stash pop 
+	$ git stash list 
+	$ git stash apply stash@{0}
 
 
 create a new repository on the command line
