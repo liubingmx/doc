@@ -112,8 +112,7 @@ $ kubectl create configmap confnginx --from-file=nginx.conf
 #### postgresql
 
 ```
-psql -U 用户名 -d 连接数据库的名字 [还可以填上服务器地址和端口5432]
-psql -U ricky -d mydb
+psql -U 用户名 -d database
 
 \password           设置密码。
 \q                  退出。
