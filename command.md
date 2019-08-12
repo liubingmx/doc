@@ -12,6 +12,7 @@
 ```
 	$ git pull origin develop:develop # checkout remote branch, auto merge
 	$ git checkout -b develop # checkout from local current branch
+	$ git checkout -b develop origin/develop
 	
 	$ git push origin new_branch    # push new branch to remote
 	$ git branch --set-upstream-to=origin/<branch> # set tracking information for this branch
