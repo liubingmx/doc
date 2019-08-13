@@ -10,6 +10,7 @@
 
 - 
 ```
+	$ git branch -a # list all branch
 	$ git pull origin develop:develop # checkout remote branch, auto merge
 	$ git checkout -b develop # checkout from local current branch
 	$ git checkout -b develop origin/develop
