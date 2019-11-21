@@ -34,6 +34,8 @@
 	$ git stash pop 
 	$ git stash list 
 	$ git stash apply stash@{0}
+	
+	$ git reset --hard commitId
 
 
 create a new repository on the command line
