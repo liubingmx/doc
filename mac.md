@@ -1,6 +1,11 @@
-### 安装brew
+### brew
+- install 
 ```bash
 /bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"
+```
+- uninstall
+```
+  /bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)"
 ```
 
 ### 设置vimrc
