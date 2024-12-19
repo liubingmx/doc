@@ -1,3 +1,8 @@
+### 安装brew
+```bash
+/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"
+```
+
 ### 设置vimrc
 
 vim .vimrc
